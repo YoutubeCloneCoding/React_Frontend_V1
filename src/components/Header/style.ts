@@ -55,7 +55,7 @@ export const SearchButtonBox = styled.div`
   &:hover {
     border-color: #c6c6c6;
     background-color: #f0f0f0;
-    box-shadow: 0 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
   }
 `;
 
