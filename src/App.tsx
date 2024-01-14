@@ -1,5 +1,6 @@
 import Header from "components/Header";
-import React from "react";
+import customAxios from "lib/customAxios";
+import React, { useEffect } from "react";
 
 function App() {
   const accessToken = new URLSearchParams(window.location.search).get(
@@ -10,9 +11,14 @@ function App() {
   );
 
   if (accessToken && refreshToken) {
-    localStorage.setItem("access_token", accessToken);
-    document.cookie = `refresh_token=${refreshToken}`;
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
+    window.location.href = "/";
   }
+
+  useEffect(() => {
+    customAxios.get("/test/t");
+  });
 
   return (
     <div>
