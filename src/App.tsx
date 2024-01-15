@@ -19,7 +19,7 @@ function App() {
   }
 
   useEffect(() => {
-    customAxios.get("/test/t");
+    customAxios.get("/api/profile")
   });
 
   return (
