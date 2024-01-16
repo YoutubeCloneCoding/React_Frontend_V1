@@ -11,6 +11,7 @@ module.exports = {
         "login-blue": "#065fd4",
         "hover-login-bg": "#def1ff",
         "sub-title": "#606060",
+        "text-gray": "#0f0f0f",
       },
     },
   },
