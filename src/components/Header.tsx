@@ -5,7 +5,7 @@ import userIcon from "assets/userIcon.svg";
 
 const Header = () => {
   return (
-    <div className="flex justify-between items-center px-[30px] h-[56px]">
+    <div className="flex justify-between items-center px-[50px] h-[56px]">
       <img className="w-[97px]" src={logo} alt="로고" />
       <div className="flex basis-[732px] justify-end items-center">
         <div className="flex basis-[536px] ml-[50px] h-[40px] border-[1px] rounded-s-[50px] border-border-gray overflow-hidden">

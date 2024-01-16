@@ -10,6 +10,7 @@ module.exports = {
         "hover-button-gray": "#f0f0f0",
         "login-blue": "#065fd4",
         "hover-login-bg": "#def1ff",
+        "sub-title": "#606060",
       },
     },
   },
