@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "pages/Home";
 import Header from "components/Header";
-import customAxios from "lib/customAxios";
 
 function App() {
   const accessToken = new URLSearchParams(window.location.search).get(
@@ -18,17 +16,13 @@ function App() {
     window.location.href = "/";
   }
 
-  useEffect(() => {
-    customAxios.get("/api/profile")
-  });
-
   return (
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </Router>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
   );
 }
 
