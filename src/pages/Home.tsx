@@ -12,10 +12,9 @@ const Home = () => {
       return data;
     },
   });
-  console.log(postList);
 
   return (
-    <div className="flex gap-[20px] flex-wrap mx-[50px] mt-[50px]">
+    <div className="grid grid-cols-[repeat(auto-fill,_minmax(350px,_auto))] gap-[20px] mx-[50px] mt-[50px]">
       {postList?.map((post: IPost) => (
         <Post post={post} />
       ))}
