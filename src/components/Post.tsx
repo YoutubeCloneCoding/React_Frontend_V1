@@ -1,6 +1,11 @@
+import IPost from "interfaces/IPost";
 import React from "react";
 
-const Post = () => {
+interface PostProps {
+  post: IPost;
+}
+
+const Post = ({ post }: PostProps) => {
   return (
     <div className="flex flex-1 basis-[350px] flex-col justify-center gap-[12px] mb-[40px]">
       <a href="https://www.youtube.com/watch?v=LWA06BY_gsY">
