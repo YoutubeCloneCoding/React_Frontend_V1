@@ -8,6 +8,7 @@ const useUser = () => {
       const { data } = await customAxios.get("/api/profile");
       return data;
     },
+    enabled: !!localStorage.getItem("accessToken"),
   });
 
   const logout = () => {
