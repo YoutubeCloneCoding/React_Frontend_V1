@@ -13,16 +13,16 @@ function App() {
   if (accessToken && refreshToken) {
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
-    window.location.href = "/";
+    window.location.replace("/");
   }
 
   return (
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </Router>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Router>
   );
 }
 

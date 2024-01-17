@@ -12,7 +12,11 @@ const Header = () => {
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
       const target = e.target as Node;
-      if (isModalOpen && target instanceof Element && !target.closest('#modal')) {
+      if (
+        isModalOpen &&
+        target instanceof Element &&
+        !target.closest("#modal")
+      ) {
         setIsModalOpen(false);
       }
     };
