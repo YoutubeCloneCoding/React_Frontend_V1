@@ -26,7 +26,7 @@ const Post = ({ post }: PostProps) => {
           <div className="text-[16px] font-medium">{post.title}</div>
           <div className="text-[14px] text-sub-title">{post.nickname}</div>
           <div className="text-[14px] text-sub-title mt-[-2px]">
-            조회수 123만회 · 3주 전
+            조회수 123만회 · {post.createdAt}
           </div>
         </div>
       </a>
