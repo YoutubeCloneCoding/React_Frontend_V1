@@ -20,7 +20,7 @@ customAxios.interceptors.response.use(
     try {
       const refreshToken = localStorage.getItem("refreshToken");
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/api/token`,
+        `${process.env.REACT_APP_BASE_URL}api/token`,
         {
           refreshToken,
         },
