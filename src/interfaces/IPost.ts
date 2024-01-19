@@ -4,6 +4,8 @@ interface IPost {
   profile: string;
   thumbnail: string;
   title: string;
+  email: string;
+  link: string;
 }
 
 export default IPost;
