@@ -1,35 +1,13 @@
-import React, { useEffect, useState } from "react";
 import useUser from "hooks/useUser";
 import logo from "assets/logo.svg";
 import search from "assets/search.svg";
 import userIcon from "assets/userIcon.svg";
 import UserModal from "./UserModal";
+import useModal from "hooks/useModal";
 
 const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isModalOpen, setIsModalOpen } = useModal();
   const { user, isLogin, logout } = useUser();
-
-  useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      const target = e.target as Node;
-      if (
-        isModalOpen &&
-        target instanceof Element &&
-        !target.closest("#modal")
-      ) {
-        setIsModalOpen(false);
-      }
-    };
-
-    if (isModalOpen) {
-      setTimeout(() => {
-        window.addEventListener("click", handleOutsideClick);
-      }, 100);
-    }
-    return () => {
-      window.removeEventListener("click", handleOutsideClick);
-    };
-  }, [isModalOpen, setIsModalOpen]);
 
   return (
     <div className="flex justify-between items-center px-[50px] h-[56px]">
