@@ -1,7 +1,7 @@
+import { Link } from "react-router-dom";
 import IUser from "interfaces/IUser";
 import logoutImg from "assets/logout.svg";
 import makeVideo from "assets/makeVideo.svg";
-import React from "react";
 
 interface UserModalProps {
   user: IUser;
@@ -23,19 +23,14 @@ const UserModal = ({ user, logout }: UserModalProps) => {
         <div>
           <div>{user.nickname}</div>
           <div className="mb-[5px] break-all">{user.email}</div>
-          <a
-            className="text-login-blue text-[14px]"
-            href="https://www.youtube.com/channel/UCh5Crce0bSXb-sms3pizhsw"
-          >
+          <Link className="text-login-blue text-[14px]" to={user.email}>
             내 채널 보기
-          </a>
+          </Link>
         </div>
       </div>
       <hr />
       <div className="py-[8px]">
-        <div
-          className="flex items-center cursor-pointer px-[16px] py-[6px] hover:bg-black/[0.05]"
-        >
+        <div className="flex items-center cursor-pointer px-[16px] py-[6px] hover:bg-black/[0.05]">
           <img src={makeVideo} alt="영상 만들기" />
           <div className="ml-[16px] text-[14px] text-text-gray">만들기</div>
         </div>

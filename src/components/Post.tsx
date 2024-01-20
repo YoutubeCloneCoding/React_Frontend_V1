@@ -9,7 +9,7 @@ interface PostProps {
 const Post = ({ post, isUserPost }: PostProps) => {
   return (
     <div className="flex flex-col justify-start gap-[12px] mb-[40px]">
-      <Link to={"/video/" + post.link}>
+      <Link to={`/video/${post.link}/${post.email}`}>
         <img
           className="aspect-video w-full rounded-2xl"
           src={post.thumbnail}
@@ -17,7 +17,7 @@ const Post = ({ post, isUserPost }: PostProps) => {
         />
       </Link>
 
-      <Link className="flex gap-[12px]" to={"/" + post.email}>
+      <Link className="flex gap-[12px]" to={post.email}>
         {!isUserPost && (
           <img
             className="size-[36px] rounded-full"
