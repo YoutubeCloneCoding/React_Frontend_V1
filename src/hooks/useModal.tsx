@@ -1,21 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const useModal = () => {
-  const [issModalOpen, setModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleModalClick = () => {
-    setModalOpen(true);
+  const handleOutsideClick = (e: MouseEvent) => {
+    const target = e.target as Node;
+    if (isModalOpen && target instanceof Element && !target.closest("#modal")) {
+      setIsModalOpen(false);
+    }
   };
 
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
+  useEffect(() => {
+    if (isModalOpen) {
+      setTimeout(() => {
+        window.addEventListener("click", handleOutsideClick);
+      }, 100);
+    }
+    return () => {
+      window.removeEventListener("click", handleOutsideClick);
+    };
+  }, [isModalOpen]);
 
-  return {
-    issModalOpen,
-    handleModalClick,
-    handleCloseModal,
-  };
+  return { isModalOpen, setIsModalOpen };
 };
 
 export default useModal;

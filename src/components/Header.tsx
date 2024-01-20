@@ -1,39 +1,25 @@
-import React, { useEffect, useState } from "react";
 import useUser from "hooks/useUser";
 import logo from "assets/logo.svg";
 import search from "assets/search.svg";
 import userIcon from "assets/userIcon.svg";
 import UserModal from "./UserModal";
+import useModal from "hooks/useModal";
+import Modal from "Modal/index";
+import useModalOpen from "hooks/useModalOpen";
 
 const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isModalOpen, setIsModalOpen } = useModal();
+  const { issModalOpen, handleCloseModal, handleModalClick } = useModalOpen();
   const { user, isLogin, logout } = useUser();
-
-  useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      const target = e.target as Node;
-      if (
-        isModalOpen &&
-        target instanceof Element &&
-        !target.closest("#modal")
-      ) {
-        setIsModalOpen(false);
-      }
-    };
-
-    if (isModalOpen) {
-      setTimeout(() => {
-        window.addEventListener("click", handleOutsideClick);
-      }, 100);
-    }
-    return () => {
-      window.removeEventListener("click", handleOutsideClick);
-    };
-  }, [isModalOpen, setIsModalOpen]);
 
   return (
     <div className="flex justify-between items-center px-[50px] h-[56px]">
-      <img className="w-[97px]" src={logo} alt="로고" />
+      <img
+        className="w-[97px] cursor-pointer"
+        src={logo}
+        alt="로고"
+        onClick={() => (window.location.href = "/")}
+      />
       <div className="flex basis-[732px] justify-end items-center">
         <div className="flex basis-[536px] ml-[50px] h-[40px] border-[1px] rounded-s-[50px] border-border-gray overflow-hidden">
           <input
@@ -41,7 +27,10 @@ const Header = () => {
             placeholder="검색"
           />
         </div>
-        <div className="flex cursor-pointer justify-center items-center border-[1px] border-l-0 rounded-r-[50px] border-border-gray hover:border-hover-border-gray w-[64px] h-[40px] bg-button-gray hover:bg-hover-button-gray hover:shadow-sm">
+        <div
+          className="flex cursor-pointer justify-center items-center border-[1px] border-l-0 rounded-r-[50px] border-border-gray hover:border-hover-border-gray w-[64px] h-[40px] bg-button-gray hover:bg-hover-button-gray hover:shadow-sm"
+          onClick={handleModalClick}
+        >
           <img src={search} alt="검색" />
         </div>
       </div>
@@ -70,6 +59,7 @@ const Header = () => {
         </div>
       </div>
       {isModalOpen && <UserModal user={user} logout={logout} />}
+      {issModalOpen && <Modal onClose={handleCloseModal} />}
     </div>
   );
 };

@@ -12,6 +12,7 @@ module.exports = {
         "hover-login-bg": "#def1ff",
         "sub-title": "#606060",
         "text-gray": "#0f0f0f",
+        "hr-gray": "#f1f3f5",
       },
     },
   },

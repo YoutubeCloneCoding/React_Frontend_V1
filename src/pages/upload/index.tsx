@@ -1,27 +1,32 @@
-import { useRef } from "react";
+import React, { useRef, useState } from "react";
 import upload from "assets/upload.png";
 import useFileDrop from "hooks/useFileDrop";
 import customAxios from "lib/customAxios";
 import useImageHandling from "hooks/useImageHandling";
 import Detail from "./detail";
 
+interface VideoDetails {
+  id: string;
+  videoName: string;
+  originVideoLink: string;
+  videoLink: string;
+}
+
 const Upload = () => {
   const { onDragEnter, onDragLeave, onDragOver } = useFileDrop();
-
   const { contentImageUrl, handleImageChange } = useImageHandling();
-
-  const fileInputRef = useRef<HTMLInputElement>(null); // 파일 입력 저장
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [videoDetails, setVideoDetails] = useState<VideoDetails | null>(null);
 
   const uploadFile = async (file: File) => {
     try {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await customAxios.post("/api/upload", formData, {
-        headers: {},
-      });
+      const response = await customAxios.post("/api/upload", formData);
 
       console.log("파일 업로드 성공", response.data);
+      setVideoDetails(response.data);
     } catch (error) {
       console.error("실패", error);
     }
@@ -61,7 +66,6 @@ const Upload = () => {
 
                 if (selectedFile) {
                   handleImageChange(selectedFile);
-
                   uploadFile(selectedFile);
                 }
               }}
@@ -69,7 +73,7 @@ const Upload = () => {
           </button>
         </div>
       )}
-      {contentImageUrl && <Detail contentVideoUrl={contentImageUrl} />}
+      {contentImageUrl && <Detail videoDetails={videoDetails} />}
     </div>
   );
 };
