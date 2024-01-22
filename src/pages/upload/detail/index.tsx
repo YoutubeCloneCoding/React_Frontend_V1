@@ -161,11 +161,11 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
               <input
                 type="radio"
                 className="form-radio"
-                value="private"
-                checked={privacyOption === "PRIVATE"}
-                onChange={() => setPrivacyOption("PRIVATE")}
+                value=" PARTIAL_PUBLIC,"
+                checked={privacyOption === " PARTIAL_PUBLIC,"}
+                onChange={() => setPrivacyOption("PARTIAL_PUBLIC")}
               />
-              <span className="ml-2">비공개</span>
+              <span className="ml-2">일부 공개</span>
             </label>
           </div>
         </div>
