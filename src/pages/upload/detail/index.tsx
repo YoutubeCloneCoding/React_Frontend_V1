@@ -51,7 +51,7 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
 
   return (
     <>
-      <div className="flex flex-col overflow-y-auto max-h-[60vh] overflow-x-hidden">
+      <div className="flex flex-col overflow-y-auto max-h-[60vh] overflow-x-hidden pr-10">
         <div className="text-2xl font-semibold flex items-center pb-2.5">
           세부정보
         </div>
@@ -76,12 +76,12 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
               />
             </div>
           </div>
-          <div className="w-2/5">
+          <div className="w-2/5  ml-20">
             <video controls className="w-full">
               <source src={videoDetails?.videoLink} type="video/mp4" />
             </video>
-            <p>{videoDetails?.videoName}</p>
-            <p>{videoDetails?.originVideoLink}</p>
+            <p className="text-sm">{videoDetails?.videoName}</p>
+            <p className="text-sm">{videoDetails?.originVideoLink}</p>
           </div>
         </div>
         <div className="mt-2">
@@ -142,28 +142,30 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
                 type="radio"
                 className="form-radio"
                 value="public"
-                checked={privacyOption === "PUBLIC"}
-                onChange={() => setPrivacyOption("PUBLIC")}
+                checked={privacyOption === "public"}
+                onChange={() => setPrivacyOption("public")}
               />
               <span className="ml-2">공개</span>
             </label>
+
             <label className="inline-flex items-center ml-6">
               <input
                 type="radio"
                 className="form-radio"
                 value="private"
-                checked={privacyOption === "PRIVATE"}
-                onChange={() => setPrivacyOption("PRIVATE")}
+                checked={privacyOption === "private"}
+                onChange={() => setPrivacyOption("private")}
               />
               <span className="ml-2">비공개</span>
             </label>
+
             <label className="inline-flex items-center ml-6">
               <input
                 type="radio"
                 className="form-radio"
-                value=" PARTIAL_PUBLIC,"
-                checked={privacyOption === " PARTIAL_PUBLIC,"}
-                onChange={() => setPrivacyOption("PARTIAL_PUBLIC")}
+                value="partial_public"
+                checked={privacyOption === "partial_public"}
+                onChange={() => setPrivacyOption("partial_public")}
               />
               <span className="ml-2">일부 공개</span>
             </label>
@@ -173,7 +175,7 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
       <div className="mt-2 ml-auto">
         <button
           onClick={saveFile}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="bg-blue-600 text-white px-4 py-2 rounded"
         >
           다음
         </button>

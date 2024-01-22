@@ -15,7 +15,7 @@ const Upload = () => {
   const { contentImageUrl, handleImageChange } = useImageHandling();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [videoDetails, setVideoDetails] = useState<VideoDetails | null>(null);
-
+  
   const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
