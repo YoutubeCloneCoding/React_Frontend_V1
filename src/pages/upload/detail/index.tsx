@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import useFileDrop from "hooks/useFileDrop";
 import useImageHandling from "hooks/useImageHandling";
 import nail from "assets/thumbnail.png";
 import customAxios from "lib/customAxios";
@@ -19,7 +18,9 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
   const [inputTitle, setInputTitle] = useState("");
   const [inputExplain, setInputExplain] = useState("");
   const [privacyOption, setPrivacyOption] = useState("public"); // 초기 값 설정
-  const { onDragEnter, onDragLeave, onDragOver } = useFileDrop();
+  const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
   const {
     contentImage,
     contentImageUrl,
@@ -38,7 +39,7 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
         formData.append("publicScope", privacyOption);
 
         if (contentImage) {
-          formData.append("thumbnail", contentImage); // 수정된 부분
+          formData.append("thumbnail", contentImage);
         }
         const response = await customAxios.post("/api/save", formData);
         console.log("파일 업로드 성공", response.data);
@@ -101,8 +102,6 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
           <div className="flex flex-row">
             <div
               className="flex flex-col items-center border-dashed border border-border-gray-600 w-28 h-auto p-4 text-sm mt-2 hover:border-gray-500"
-              onDragEnter={onDragEnter}
-              onDragLeave={onDragLeave}
               onDragOver={onDragOver}
               onDrop={(e) => {
                 e.preventDefault();
@@ -147,6 +146,16 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
                 onChange={() => setPrivacyOption("PUBLIC")}
               />
               <span className="ml-2">공개</span>
+            </label>
+            <label className="inline-flex items-center ml-6">
+              <input
+                type="radio"
+                className="form-radio"
+                value="private"
+                checked={privacyOption === "PRIVATE"}
+                onChange={() => setPrivacyOption("PRIVATE")}
+              />
+              <span className="ml-2">비공개</span>
             </label>
             <label className="inline-flex items-center ml-6">
               <input

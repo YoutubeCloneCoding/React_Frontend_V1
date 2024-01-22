@@ -5,7 +5,6 @@ interface ImageHandling {
   contentImageUrl: string | null;
   onContentImageChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleImageChange: (image: File) => void;
-  removeContentImage: () => void;
 }
 
 const useImageHandling = (): ImageHandling => {
@@ -31,16 +30,10 @@ const useImageHandling = (): ImageHandling => {
     reader.readAsDataURL(image);
   };
 
-  const removeContentImage = () => {
-    setContentImage(null);
-    setContentImageUrl(null);
-  };
-
   return {
     contentImageUrl,
     onContentImageChange,
     handleImageChange,
-    removeContentImage,
     contentImage,
   };
 };

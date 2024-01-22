@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import upload from "assets/upload.png";
-import useFileDrop from "hooks/useFileDrop";
 import customAxios from "lib/customAxios";
 import useImageHandling from "hooks/useImageHandling";
 import Detail from "./detail";
@@ -13,11 +12,13 @@ interface VideoDetails {
 }
 
 const Upload = () => {
-  const { onDragEnter, onDragLeave, onDragOver } = useFileDrop();
   const { contentImageUrl, handleImageChange } = useImageHandling();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [videoDetails, setVideoDetails] = useState<VideoDetails | null>(null);
 
+  const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
   const uploadFile = async (file: File) => {
     try {
       const formData = new FormData();
@@ -35,13 +36,12 @@ const Upload = () => {
   return (
     <div
       className="flex justify-center items-center flex-col p-10"
-      onDragEnter={onDragEnter}
-      onDragLeave={onDragLeave}
       onDragOver={onDragOver}
       onDrop={(e) => {
         e.preventDefault();
         const droppedFile = e.dataTransfer.files[0];
         handleImageChange(droppedFile);
+        uploadFile(droppedFile);
       }}
     >
       {!contentImageUrl && (
