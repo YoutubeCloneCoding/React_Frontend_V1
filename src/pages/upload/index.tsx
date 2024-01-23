@@ -3,6 +3,7 @@ import upload from "assets/upload.png";
 import customAxios from "lib/customAxios";
 import useImageHandling from "hooks/useImageHandling";
 import Detail from "./detail";
+import "./index.css";
 
 interface VideoDetails {
   id: string;
@@ -35,7 +36,8 @@ const Upload = () => {
 
   return (
     <div
-      className="flex justify-center items-center flex-col p-10"
+      id="scroll"
+      className="flex justify-center items-center flex-col overflow-y-auto max-h-[100vh] overflow-x-hidden p-10"
       onDragOver={onDragOver}
       onDrop={(e) => {
         e.preventDefault();

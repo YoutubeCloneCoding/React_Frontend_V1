@@ -7,8 +7,14 @@ import useModal from "hooks/useModal";
 import Modal from "Modal/index";
 
 const Header = () => {
-  const { isUserModalOpen, setIsUserModalOpen } = useModal();
-  const { isModalOpen, handleOpen, handleClose } = useModal();
+  const {
+    isUserModalOpen,
+    setIsUserModalOpen,
+    isModalOpen,
+    handleOpen,
+    handleClose,
+  } = useModal();
+
   const { user, isLogin, logout } = useUser();
 
   return (

@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import useImageHandling from "hooks/useImageHandling";
 import nail from "assets/thumbnail.png";
 import customAxios from "lib/customAxios";
-import "./index.css";
 
 interface VideoDetails {
   id: string;
@@ -52,8 +51,8 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
 
   return (
     <>
-      <div id="scroll" className="flex flex-col overflow-y-auto max-h-[60vh]">
-        <div className="text-2xl font-semibold flex items-center pb-2.5">
+      <div className="flex flex-col p-10">
+        <div className="text-2xl font-semibold flex items-center pb-2.5 mt-10">
           세부정보
         </div>
         <div className="flex flex-row items-start">
