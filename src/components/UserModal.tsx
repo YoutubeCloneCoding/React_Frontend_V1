@@ -1,7 +1,6 @@
 import IUser from "interfaces/IUser";
 import logoutImg from "assets/logout.svg";
 import makeVideo from "assets/makeVideo.svg";
-import React from "react";
 
 interface UserModalProps {
   user: IUser;
@@ -33,9 +32,7 @@ const UserModal = ({ user, logout }: UserModalProps) => {
       </div>
       <hr />
       <div className="py-[8px]">
-        <div
-          className="flex items-center cursor-pointer px-[16px] py-[6px] hover:bg-black/[0.05]"
-        >
+        <div className="flex items-center cursor-pointer px-[16px] py-[6px] hover:bg-black/[0.05]">
           <img src={makeVideo} alt="영상 만들기" />
           <div className="ml-[16px] text-[14px] text-text-gray">만들기</div>
         </div>

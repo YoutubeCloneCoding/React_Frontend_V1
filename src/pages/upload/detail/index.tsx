@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import useImageHandling from "hooks/useImageHandling";
 import nail from "assets/thumbnail.png";
 import customAxios from "lib/customAxios";
+import "./index.css";
 
 interface VideoDetails {
   id: string;
@@ -51,7 +52,7 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
 
   return (
     <>
-      <div className="flex flex-col overflow-y-auto max-h-[60vh] overflow-x-hidden pr-10">
+      <div id="scroll" className="flex flex-col overflow-y-auto max-h-[60vh]">
         <div className="text-2xl font-semibold flex items-center pb-2.5">
           세부정보
         </div>
@@ -142,8 +143,8 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
                 type="radio"
                 className="form-radio"
                 value="public"
-                checked={privacyOption === "public"}
-                onChange={() => setPrivacyOption("public")}
+                checked={privacyOption === "PUBLIC"}
+                onChange={() => setPrivacyOption("PUBLIC")}
               />
               <span className="ml-2">공개</span>
             </label>
@@ -153,10 +154,10 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
                 type="radio"
                 className="form-radio"
                 value="private"
-                checked={privacyOption === "private"}
-                onChange={() => setPrivacyOption("private")}
+                checked={privacyOption === "PARTIAL_PUBLIC"}
+                onChange={() => setPrivacyOption("PARTIAL_PUBLIC")}
               />
-              <span className="ml-2">비공개</span>
+              <span className="ml-2">일부 공개</span>
             </label>
 
             <label className="inline-flex items-center ml-6">
@@ -164,10 +165,10 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
                 type="radio"
                 className="form-radio"
                 value="partial_public"
-                checked={privacyOption === "partial_public"}
-                onChange={() => setPrivacyOption("partial_public")}
+                checked={privacyOption === "PRIVATE"}
+                onChange={() => setPrivacyOption("PRIVATE")}
               />
-              <span className="ml-2">일부 공개</span>
+              <span className="ml-2">비공개</span>
             </label>
           </div>
         </div>

@@ -5,11 +5,10 @@ import userIcon from "assets/userIcon.svg";
 import UserModal from "./UserModal";
 import useModal from "hooks/useModal";
 import Modal from "Modal/index";
-import useModalOpen from "hooks/useModalOpen";
 
 const Header = () => {
-  const { isModalOpen, setIsModalOpen } = useModal();
-  const { issModalOpen, handleCloseModal, handleModalClick } = useModalOpen();
+  const { isUserModalOpen, setIsUserModalOpen } = useModal();
+  const { isModalOpen, handleOpen, handleClose } = useModal();
   const { user, isLogin, logout } = useUser();
 
   return (
@@ -29,7 +28,7 @@ const Header = () => {
         </div>
         <div
           className="flex cursor-pointer justify-center items-center border-[1px] border-l-0 rounded-r-[50px] border-border-gray hover:border-hover-border-gray w-[64px] h-[40px] bg-button-gray hover:bg-hover-button-gray hover:shadow-sm"
-          onClick={handleModalClick}
+          onClick={handleOpen}
         >
           <img src={search} alt="검색" />
         </div>
@@ -41,7 +40,7 @@ const Header = () => {
               className="rounded-full size-[32px] cursor-pointer"
               src={user.profile}
               alt="아이콘"
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => setIsUserModalOpen(true)}
             />
           ) : (
             <a
@@ -58,8 +57,8 @@ const Header = () => {
           )}
         </div>
       </div>
-      {isModalOpen && <UserModal user={user} logout={logout} />}
-      {issModalOpen && <Modal onClose={handleCloseModal} />}
+      {isUserModalOpen && <UserModal user={user} logout={logout} />}
+      {isModalOpen && <Modal onClose={handleClose} />}
     </div>
   );
 };
