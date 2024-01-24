@@ -17,7 +17,7 @@ interface DetailBoxProps {
 const Detail = ({ videoDetails }: DetailBoxProps) => {
   const [inputTitle, setInputTitle] = useState("");
   const [inputExplain, setInputExplain] = useState("");
-  const [privacyOption, setPrivacyOption] = useState("public"); // 초기 값 설정
+  const [privacyOption, setPrivacyOption] = useState("PUBLIC"); // 초기 값 설정
   const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };

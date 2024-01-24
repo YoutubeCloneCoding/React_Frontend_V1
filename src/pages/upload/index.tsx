@@ -3,7 +3,6 @@ import upload from "assets/upload.png";
 import customAxios from "lib/customAxios";
 import useImageHandling from "hooks/useImageHandling";
 import Detail from "./detail";
-import "./index.css";
 
 interface VideoDetails {
   id: string;

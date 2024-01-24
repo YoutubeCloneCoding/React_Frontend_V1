@@ -24,7 +24,7 @@ const useImageHandling = (): ImageHandling => {
 
   const readImage = (image: File) => {
     const reader = new FileReader();
-    reader.onload = function (e) {
+    reader.onload = (e) => {
       setContentImageUrl(String(e.target?.result));
     };
     reader.readAsDataURL(image);
