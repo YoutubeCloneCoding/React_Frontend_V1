@@ -43,10 +43,6 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
     reader.readAsDataURL(image);
   };
 
-  const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  };
-
   const saveFile = async () => {
     try {
       if (videoDetails) {
@@ -121,7 +117,6 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
           <div className="flex flex-row">
             <div
               className="flex flex-col items-center border-dashed border border-border-gray-600 w-28 h-auto p-4 text-sm mt-2 hover:border-gray-500"
-              onDragOver={onDragOver}
               onDrop={(e) => {
                 e.preventDefault();
                 const droppedFile = e.dataTransfer.files[0];

@@ -53,15 +53,10 @@ const Upload = () => {
     }
   };
 
-  const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  };
-
   return (
     <div
       id="scroll"
       className="flex justify-center items-center flex-col overflow-y-auto max-h-[100vh] overflow-x-hidden p-10"
-      onDragOver={onDragOver}
       onDrop={(e) => {
         e.preventDefault();
         const droppedFile = e.dataTransfer.files[0];
