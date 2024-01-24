@@ -4,7 +4,7 @@ import search from "assets/search.svg";
 import userIcon from "assets/userIcon.svg";
 import UserModal from "./UserModal";
 import useModal from "hooks/useModal";
-import Modal from "Modal/index";
+import Modal from "components/UploadModal";
 
 const Header = () => {
   const {
