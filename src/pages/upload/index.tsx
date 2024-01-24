@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, ChangeEvent } from "react";
 import upload from "assets/upload.png";
 import customAxios from "lib/customAxios";
-import useImageHandling from "hooks/useImageHandling";
 import Detail from "./detail";
 
 interface VideoDetails {
@@ -12,13 +11,34 @@ interface VideoDetails {
 }
 
 const Upload = () => {
-  const { contentImageUrl, handleImageChange } = useImageHandling();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [videoDetails, setVideoDetails] = useState<VideoDetails | null>(null);
+  const [contentImageUrl, setContentImageUrl] = useState<string | null>(null);
+  const [contentImage, setContentImage] = useState<File | null>(null);
 
-  const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
+  const onContentImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const selectedFile = e.target.files[0];
+      setContentImage(selectedFile);
+      readImage(selectedFile);
+      uploadFile(selectedFile);
+    }
   };
+
+  const handleImageChange = (image: File) => {
+    setContentImage(image);
+    readImage(image);
+    uploadFile(image);
+  };
+
+  const readImage = (image: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setContentImageUrl(String(e.target?.result));
+    };
+    reader.readAsDataURL(image);
+  };
+
   const uploadFile = async (file: File) => {
     try {
       const formData = new FormData();
@@ -31,6 +51,10 @@ const Upload = () => {
     } catch (error) {
       console.error("실패", error);
     }
+  };
+
+  const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
   };
 
   return (
@@ -62,14 +86,7 @@ const Upload = () => {
               style={{ display: "none" }}
               aria-hidden
               ref={fileInputRef}
-              onChange={(e) => {
-                const selectedFile = e.target.files && e.target.files[0];
-
-                if (selectedFile) {
-                  handleImageChange(selectedFile);
-                  uploadFile(selectedFile);
-                }
-              }}
+              onChange={onContentImageChange}
             />
           </button>
         </div>

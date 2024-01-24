@@ -1,5 +1,4 @@
-import React, { useState, useRef } from "react";
-import useImageHandling from "hooks/useImageHandling";
+import React, { useState, useRef, ChangeEvent } from "react";
 import nail from "assets/thumbnail.png";
 import customAxios from "lib/customAxios";
 
@@ -17,17 +16,36 @@ interface DetailBoxProps {
 const Detail = ({ videoDetails }: DetailBoxProps) => {
   const [inputTitle, setInputTitle] = useState("");
   const [inputExplain, setInputExplain] = useState("");
-  const [privacyOption, setPrivacyOption] = useState("PUBLIC"); // 초기 값 설정
+  const [privacyOption, setPrivacyOption] = useState("PUBLIC");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [contentImageUrl, setContentImageUrl] = useState<string | null>(null);
+  const [contentImage, setContentImage] = useState<File | null>(null);
+
+  const onContentImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const selectedFile = e.target.files[0];
+      setContentImage(selectedFile);
+      readImage(selectedFile);
+    }
+  };
+
+  const handleImageChange = (image: File) => {
+    setContentImage(image);
+    readImage(image);
+  };
+
+  const readImage = (image: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setContentImageUrl(String(e.target?.result));
+    };
+    reader.readAsDataURL(image);
+  };
+
   const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
-  const {
-    contentImage,
-    contentImageUrl,
-    onContentImageChange,
-    handleImageChange,
-  } = useImageHandling();
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const saveFile = async () => {
     try {
@@ -41,6 +59,7 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
         if (contentImage) {
           formData.append("thumbnail", contentImage);
         }
+
         const response = await customAxios.post("/api/save", formData);
         console.log("파일 업로드 성공", response.data);
       }
