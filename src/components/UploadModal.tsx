@@ -1,6 +1,5 @@
 import back from "assets/delete.svg";
-import Upload from "../pages/upload";
-
+import Upload from "pages/upload";
 
 interface ModalProps {
   onClose: () => void;
