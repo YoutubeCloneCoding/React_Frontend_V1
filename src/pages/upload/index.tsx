@@ -2,6 +2,7 @@ import React, { useRef, useState, ChangeEvent } from "react";
 import upload from "assets/upload.png";
 import customAxios from "lib/customAxios";
 import Detail from "./detail";
+import { useMutation } from "react-query";
 
 interface VideoDetails {
   id: string;
@@ -16,19 +17,34 @@ const Upload = () => {
   const [contentImageUrl, setContentImageUrl] = useState<string | null>(null);
   const [contentImage, setContentImage] = useState<File | null>(null);
 
+  const uploadMutation = useMutation(
+    async (file: File) => {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await customAxios.post("/api/upload", formData);
+      return response.data;
+    },
+    {
+      onSuccess: (data) => {
+        setVideoDetails(data);
+      },
+    },
+  );
+
   const onContentImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const selectedFile = e.target.files[0];
       setContentImage(selectedFile);
       readImage(selectedFile);
-      uploadFile(selectedFile);
+      uploadMutation.mutate(selectedFile);
     }
   };
 
   const handleImageChange = (image: File) => {
     setContentImage(image);
     readImage(image);
-    uploadFile(image);
+    uploadMutation.mutate(image);
   };
 
   const readImage = (image: File) => {
@@ -39,20 +55,6 @@ const Upload = () => {
     reader.readAsDataURL(image);
   };
 
-  const uploadFile = async (file: File) => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const response = await customAxios.post("/api/upload", formData);
-
-      console.log("파일 업로드 성공", response.data);
-      setVideoDetails(response.data);
-    } catch (error) {
-      console.error("실패", error);
-    }
-  };
-
   return (
     <div
       id="scroll"
@@ -61,7 +63,7 @@ const Upload = () => {
         e.preventDefault();
         const droppedFile = e.dataTransfer.files[0];
         handleImageChange(droppedFile);
-        uploadFile(droppedFile);
+        uploadMutation.mutate(droppedFile);
       }}
     >
       {!contentImageUrl && (

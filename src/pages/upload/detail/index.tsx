@@ -1,6 +1,7 @@
 import React, { useState, useRef, ChangeEvent } from "react";
 import nail from "assets/thumbnail.png";
 import customAxios from "lib/customAxios";
+import { useMutation } from "react-query";
 
 interface VideoDetails {
   id: string;
@@ -43,31 +44,26 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
     reader.readAsDataURL(image);
   };
 
-  const saveFile = async () => {
-    try {
-      if (videoDetails) {
-        const formData = new FormData();
-        formData.append("id", videoDetails.id.toString());
-        formData.append("title", inputTitle);
-        formData.append("contents", inputExplain);
-        formData.append("publicScope", privacyOption);
+  const saveMutation = useMutation(async () => {
+    const formData = new FormData();
 
-        if (contentImage) {
-          formData.append("thumbnail", contentImage);
-        }
+    formData.append("id", (videoDetails?.id ?? "").toString()); //videoDetails가 null이 아닐 때
+    formData.append("title", inputTitle);
+    formData.append("contents", inputExplain);
+    formData.append("publicScope", privacyOption);
 
-        const response = await customAxios.post("/api/save", formData);
-        console.log("파일 업로드 성공", response.data);
-      }
-    } catch (error) {
-      console.error("실패", error);
+    if (contentImage) {
+      formData.append("thumbnail", contentImage);
     }
-  };
+
+    const response = await customAxios.post("/api/save", formData);
+    return response.data;
+  });
 
   return (
     <>
-      <div className="flex flex-col p-10">
-        <div className="text-2xl font-semibold flex items-center pb-2.5 mt-10">
+      <div id="mao" className="flex flex-col p-10">
+        <div className="text-2xl font-semibold flex items-center pb-2.5 mt-14">
           세부정보
         </div>
         <div className="flex flex-row items-start">
@@ -95,7 +91,7 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
             <video controls className="w-full">
               <source src={videoDetails?.videoLink} type="video/mp4" />
             </video>
-            <p className="text-sm">{videoDetails?.videoName}</p>
+            <p className="text-base">{videoDetails?.videoName}</p>
             <p className="text-sm">{videoDetails?.originVideoLink}</p>
           </div>
         </div>
@@ -188,7 +184,7 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
       </div>
       <div className="mt-2 ml-auto">
         <button
-          onClick={saveFile}
+          onClick={() => saveMutation.mutate()}
           className="bg-blue-600 text-white px-4 py-2 rounded"
         >
           다음
