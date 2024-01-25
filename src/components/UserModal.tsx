@@ -1,6 +1,8 @@
 import IUser from "interfaces/IUser";
 import logoutImg from "assets/logout.svg";
 import makeVideo from "assets/makeVideo.svg";
+import useModal from "hooks/useModal";
+import Modal from "./UploadModal";
 
 interface UserModalProps {
   user: IUser;
@@ -8,6 +10,8 @@ interface UserModalProps {
 }
 
 const UserModal = ({ user, logout }: UserModalProps) => {
+  const { isModalOpen, setIsModalOpen } = useModal();
+
   return (
     <div
       id="modal"
@@ -33,7 +37,11 @@ const UserModal = ({ user, logout }: UserModalProps) => {
       <hr />
       <div className="py-[8px]">
         <div className="flex items-center cursor-pointer px-[16px] py-[6px] hover:bg-black/[0.05]">
-          <img src={makeVideo} alt="영상 만들기" />
+          <img
+            src={makeVideo}
+            alt="영상 만들기"
+            onClick={() => setIsModalOpen(true)}
+          />
           <div className="ml-[16px] text-[14px] text-text-gray">만들기</div>
         </div>
       </div>
@@ -46,6 +54,7 @@ const UserModal = ({ user, logout }: UserModalProps) => {
           <div className="ml-[16px] text-[14px] text-text-gray">로그아웃</div>
         </div>
       </div>
+      {isModalOpen && <Modal onClose={() => setIsModalOpen(false)} />}
     </div>
   );
 };

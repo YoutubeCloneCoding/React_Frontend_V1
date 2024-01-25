@@ -4,17 +4,9 @@ import search from "assets/search.svg";
 import userIcon from "assets/userIcon.svg";
 import UserModal from "./UserModal";
 import useModal from "hooks/useModal";
-import Modal from "components/UploadModal";
 
 const Header = () => {
-  const {
-    isUserModalOpen,
-    setIsUserModalOpen,
-    isModalOpen,
-    handleOpen,
-    handleClose,
-  } = useModal();
-
+  const { isModalOpen, setIsModalOpen } = useModal();
   const { user, isLogin, logout } = useUser();
 
   return (
@@ -32,10 +24,7 @@ const Header = () => {
             placeholder="검색"
           />
         </div>
-        <div
-          className="flex cursor-pointer justify-center items-center border-[1px] border-l-0 rounded-r-[50px] border-border-gray hover:border-hover-border-gray w-[64px] h-[40px] bg-button-gray hover:bg-hover-button-gray hover:shadow-sm"
-          onClick={handleOpen}
-        >
+        <div className="flex cursor-pointer justify-center items-center border-[1px] border-l-0 rounded-r-[50px] border-border-gray hover:border-hover-border-gray w-[64px] h-[40px] bg-button-gray hover:bg-hover-button-gray hover:shadow-sm">
           <img src={search} alt="검색" />
         </div>
       </div>
@@ -46,7 +35,7 @@ const Header = () => {
               className="rounded-full size-[32px] cursor-pointer"
               src={user.profile}
               alt="아이콘"
-              onClick={() => setIsUserModalOpen(true)}
+              onClick={() => setIsModalOpen(true)}
             />
           ) : (
             <a
@@ -63,8 +52,7 @@ const Header = () => {
           )}
         </div>
       </div>
-      {isUserModalOpen && <UserModal user={user} logout={logout} />}
-      {isModalOpen && <Modal onClose={handleClose} />}
+      {isModalOpen && <UserModal user={user} logout={logout} />}
     </div>
   );
 };

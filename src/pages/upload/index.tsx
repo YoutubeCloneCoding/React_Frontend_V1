@@ -3,7 +3,6 @@ import upload from "assets/upload.png";
 import customAxios from "lib/customAxios";
 import Detail from "./detail";
 import { useMutation } from "react-query";
-import useUser from "hooks/useUser";
 
 interface VideoDetails {
   id: string;
@@ -13,8 +12,6 @@ interface VideoDetails {
 }
 
 const Upload = () => {
-  const { isLogin } = useUser();
-
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [videoDetails, setVideoDetails] = useState<VideoDetails | null>(null);
   const [contentImageUrl, setContentImageUrl] = useState<string | null>(null);
@@ -29,8 +26,8 @@ const Upload = () => {
       return response.data;
     },
     {
-      onSuccess: (data) => {
-        setVideoDetails(data);
+      onSuccess: (response) => {
+        setVideoDetails(response);
       },
     },
   );
@@ -60,7 +57,6 @@ const Upload = () => {
 
   return (
     <>
-      {" "}
       <div
         id="scroll"
         className="flex justify-center items-center flex-col overflow-y-auto max-h-[100vh] overflow-x-hidden p-10"

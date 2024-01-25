@@ -137,7 +137,8 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
             </div>
             {contentImageUrl && (
               <img
-                className="w-28 h-auto cursor-pointer p-4 mt-2"
+                className="w-28 h-auto cursor-pointer p-4 mt-2 "
+                style={{ maxWidth: "100%", height: "auto" }}
                 src={contentImageUrl}
                 alt=""
               />
@@ -187,7 +188,9 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
           onClick={() => saveMutation.mutate()}
           className="bg-blue-600 text-white px-4 py-2 rounded"
         >
-          다음
+          <a href="https://www.youtube.com/channel/UCh5Crce0bSXb-sms3pizhsw">
+            다음
+          </a>
         </button>
       </div>
     </>
