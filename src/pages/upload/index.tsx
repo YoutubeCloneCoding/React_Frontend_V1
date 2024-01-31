@@ -2,7 +2,7 @@ import React, { useRef, useState, ChangeEvent } from "react";
 import upload from "assets/upload.png";
 import customAxios from "lib/customAxios";
 import Detail from "./detail";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 
 interface VideoDetails {
   id: string;
@@ -17,20 +17,18 @@ const Upload = () => {
   const [contentImageUrl, setContentImageUrl] = useState<string | null>(null);
   const [contentImage, setContentImage] = useState<File | null>(null);
 
-  const uploadMutation = useMutation(
-    async (file: File) => {
+  const uploadMutation = useMutation({
+    mutationFn: async (file: File) => {
       const formData = new FormData();
       formData.append("file", file);
 
       const response = await customAxios.post("/api/upload", formData);
       return response.data;
     },
-    {
-      onSuccess: (response) => {
-        setVideoDetails(response);
-      },
+    onSuccess: (response) => {
+      setVideoDetails(response);
     },
-  );
+  });
 
   const onContentImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {

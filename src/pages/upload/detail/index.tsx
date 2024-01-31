@@ -1,7 +1,9 @@
 import React, { useState, useRef, ChangeEvent } from "react";
 import nail from "assets/thumbnail.png";
 import customAxios from "lib/customAxios";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import useUser from "hooks/useUser";
 
 interface VideoDetails {
   id: string;
@@ -22,6 +24,11 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
 
   const [contentImageUrl, setContentImageUrl] = useState<string | null>(null);
   const [contentImage, setContentImage] = useState<File | null>(null);
+
+  const navigate = useNavigate();
+  const {
+    user: { email },
+  } = useUser();
 
   const onContentImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -44,20 +51,28 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
     reader.readAsDataURL(image);
   };
 
-  const saveMutation = useMutation(async () => {
-    const formData = new FormData();
+  const saveMutation = useMutation({
+    mutationFn: async () => {
+      const formData = new FormData();
 
-    formData.append("id", (videoDetails?.id ?? "").toString()); //videoDetails가 null이 아닐 때
-    formData.append("title", inputTitle);
-    formData.append("contents", inputExplain);
-    formData.append("publicScope", privacyOption);
+      formData.append(
+        "request",
+        JSON.stringify({
+          id: (videoDetails?.id ?? "").toString(),
+          title: inputTitle,
+          content: inputExplain,
+          publicScope: privacyOption,
+        }),
+      );
 
-    if (contentImage) {
-      formData.append("thumbnail", contentImage);
-    }
+      if (contentImage) {
+        formData.append("file", contentImage);
+      }
 
-    const response = await customAxios.post("/api/save", formData);
-    return response.data;
+      const response = await customAxios.post("/api/save", formData);
+      return response.data;
+    },
+    onSuccess: () => navigate(email),
   });
 
   return (
@@ -124,7 +139,7 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
               </label>
               <input
                 type="file"
-                accept=".png, .svg"
+                accept=".png, .jpeg, .jpg"
                 id="input-file"
                 style={{ display: "none" }}
                 aria-hidden
@@ -188,9 +203,7 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
           onClick={() => saveMutation.mutate()}
           className="bg-blue-600 text-white px-4 py-2 rounded"
         >
-          <a href="https://www.youtube.com/channel/UCh5Crce0bSXb-sms3pizhsw">
-            다음
-          </a>
+          다음
         </button>
       </div>
     </>
