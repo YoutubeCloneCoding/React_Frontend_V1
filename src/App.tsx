@@ -2,11 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "pages/Home";
 import Header from "components/Header";
 import UserDetail from "pages/UserDetail";
-import { QueryClient, QueryClientProvider } from "react-query";
+import Play from "pages/Play";
 
 function App() {
-  const queryClient = new QueryClient();
-
   const accessToken = new URLSearchParams(window.location.search).get(
     "accessToken",
   );
@@ -21,15 +19,14 @@ function App() {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/:email" element={<UserDetail />} />
-        </Routes>
-      </Router>
-    </QueryClientProvider>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/:email" element={<UserDetail />} />
+        <Route path="/video/:email/:uuid" element={<Play />} />
+      </Routes>
+    </Router>
   );
 }
 

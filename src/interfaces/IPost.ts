@@ -6,6 +6,7 @@ interface IPost {
   title: string;
   email: string;
   link: string;
+  video: string;
 }
 
 export default IPost;

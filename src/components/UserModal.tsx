@@ -26,22 +26,18 @@ const UserModal = ({ user, logout }: UserModalProps) => {
         <div>
           <div>{user.nickname}</div>
           <div className="mb-[5px] break-all">{user.email}</div>
-          <a
-            className="text-login-blue text-[14px]"
-            href="https://www.youtube.com/channel/UCh5Crce0bSXb-sms3pizhsw"
-          >
+          <a className="text-login-blue text-[14px]" href={`/${user.email}`}>
             내 채널 보기
           </a>
         </div>
       </div>
       <hr />
       <div className="py-[8px]">
-        <div className="flex items-center cursor-pointer px-[16px] py-[6px] hover:bg-black/[0.05]">
-          <img
-            src={makeVideo}
-            alt="영상 만들기"
-            onClick={() => setIsModalOpen(true)}
-          />
+        <div
+          className="flex items-center cursor-pointer px-[16px] py-[6px] hover:bg-black/[0.05]"
+          onClick={() => setIsModalOpen(true)}
+        >
+          <img src={makeVideo} alt="영상 만들기" />
           <div className="ml-[16px] text-[14px] text-text-gray">만들기</div>
         </div>
       </div>

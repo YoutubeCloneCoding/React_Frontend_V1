@@ -4,15 +4,14 @@ import { Link } from "react-router-dom";
 
 interface PostProps {
   post: IPost;
-  isUserPost: boolean;
 }
 
-const Post = ({ post, isUserPost }: PostProps) => {
+const VideoPost = ({ post }: PostProps) => {
   const [isHover, setIsHover] = useState(false);
 
   return (
-    <div className="flex flex-col justify-start gap-[12px] mb-[40px]">
-      <Link to={`/video/${post.email}/${post.link}`}>
+    <div className="flex gap-[12px] mb-[5px]">
+      <Link className="w-[168px] h-[94px]" to={`/${post.email}/${post.link}`}>
         {isHover ? (
           <video
             src={post.video}
@@ -33,19 +32,10 @@ const Post = ({ post, isUserPost }: PostProps) => {
       </Link>
 
       <Link className="flex gap-[12px]" to={"/" + post.email}>
-        {!isUserPost && (
-          <img
-            className="size-[36px] rounded-full"
-            src={post.profile}
-            alt="프로필"
-          />
-        )}
-        <div>
-          <div className="text-[16px] font-medium">{post.title}</div>
-          {!isUserPost && (
-            <div className="text-[14px] text-sub-title">{post.nickname}</div>
-          )}
-          <div className="text-[14px] text-sub-title mt-[-2px]">
+        <div className="min-w-0 text-ellipsis overflow-hidden pr-[24px]">
+          <h3 className="text-[15px] font-medium mb-[4px]">{post.title}</h3>
+          <div className="text-[12px] text-sub-title">{post.nickname}</div>
+          <div className="text-[12px] text-sub-title mt-[-2px]">
             조회수 123만회 · {post.createdAt}
           </div>
         </div>
@@ -54,4 +44,4 @@ const Post = ({ post, isUserPost }: PostProps) => {
   );
 };
 
-export default Post;
+export default VideoPost;
