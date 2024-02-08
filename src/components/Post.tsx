@@ -1,4 +1,5 @@
 import IPost from "interfaces/IPost";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 interface PostProps {
@@ -7,14 +8,28 @@ interface PostProps {
 }
 
 const Post = ({ post, isUserPost }: PostProps) => {
+  const [isHover, setIsHover] = useState(false);
+
   return (
     <div className="flex flex-col justify-start gap-[12px] mb-[40px]">
-      <Link to={"/video/" + post.link}>
-        <img
-          className="aspect-video w-full rounded-2xl"
-          src={post.thumbnail}
-          alt="썸네일"
-        />
+      <Link to={`/video/${post.email}/${post.link}`}>
+        {isHover ? (
+          <video
+            src={post.video}
+            autoPlay
+            muted
+            controls
+            className="aspect-video w-full "
+            onMouseOut={() => setIsHover(false)}
+          />
+        ) : (
+          <img
+            className="aspect-video w-full rounded-2xl "
+            src={post.thumbnail}
+            alt="썸네일"
+            onMouseOver={() => setIsHover(true)}
+          />
+        )}
       </Link>
 
       <Link className="flex gap-[12px]" to={"/" + post.email}>
