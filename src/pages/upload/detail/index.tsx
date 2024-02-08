@@ -60,7 +60,7 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
         JSON.stringify({
           id: (videoDetails?.id ?? "").toString(),
           title: inputTitle,
-          content: inputExplain,
+          contents: inputExplain,
           publicScope: privacyOption,
         }),
       );
@@ -94,9 +94,8 @@ const Detail = ({ videoDetails }: DetailBoxProps) => {
             </div>
             <div className="border border-border-gray-600 h-full rounded-sm">
               <label className="text-xs text-gray">설명</label>
-              <input
+              <textarea
                 className="w-full h-24 px-2 focus:outline-none"
-                type="text"
                 onChange={(e) => setInputExplain(e.target.value)}
                 placeholder="시청자에게 동영상에 대해 설명 해 주세요"
               />
