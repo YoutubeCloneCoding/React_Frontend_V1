@@ -10,7 +10,7 @@ const Header = () => {
   const { user, isLogin, logout } = useUser();
 
   return (
-    <div className="flex justify-between items-center px-[50px] h-[56px]">
+    <div className="flex justify-between items-center px-[50px] h-[56px] min-w-[calc(360px*16/9+48px)]">
       <img
         className="w-[97px] cursor-pointer"
         src={logo}
