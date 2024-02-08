@@ -26,7 +26,7 @@ const UserModal = ({ user, logout }: UserModalProps) => {
         <div>
           <div>{user.nickname}</div>
           <div className="mb-[5px] break-all">{user.email}</div>
-          <a className="text-login-blue text-[14px]" href={user.email}>
+          <a className="text-login-blue text-[14px]" href={`/${user.email}`}>
             내 채널 보기
           </a>
         </div>
